@@ -1,0 +1,47 @@
+Declare x As Integer
+Declare y As Integer
+Declare result As Integer
+Declare arr As Array Of Integer[5]
+Declare matrix As Array Of Integer[3][3]
+Declare str As String
+Declare concatResult As String
+
+x = 5
+y = 10
+result = add(x, y)
+Print result
+
+If result > 10 Then
+    Print "Result is greater than 10"
+Else
+    Print "Result is 10 or less"
+End If
+
+For i=0 To 4 Do
+    arr[i] = i * 2
+End For
+
+For i=0 To 2 Do
+    For j=0 To 2 Do
+        matrix[i][j] = i + j
+    End For
+End For
+
+For i=0 To 2 Do
+    For j=0 To 2 Do
+        Print matrix[i][j]
+    End For
+End For
+
+str = "Hello"
+concatResult = str + " World"
+Print concatResult
+
+Declare isTrue As Boolean
+Declare isFalse As Boolean
+Declare boolResult As Boolean
+
+isTrue = True
+isFalse = False
+boolResult = isTrue And isFalse
+Print boolResult
