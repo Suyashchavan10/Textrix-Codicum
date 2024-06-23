@@ -8,3 +8,64 @@ Declare concatResult As String
 
 Assign x = 5
 Assign y = x + 5 * 3
+Print result
+
+If result > 10 Then
+    Assign x = 5
+    Print "Result is greater than 10"
+Else
+    Print "Result is 10 or less"
+    Assign x = 10
+End If
+
+If result > 10 Then
+    If x = 3+4 Then
+        Assign x = 3*3
+    End If
+Else
+    If x < 23 Then
+        Print "Result is 10 or less"
+        Assign x = 10
+    Else 
+        Declare z As Integer
+        Assign z = 234
+    End If
+End If
+
+For i=0 To 4 Do
+    Assign arr[i] = i * 2
+End For
+
+For i=0 To 2 Do
+    For j=0 To 2 Do
+        Assign matrix[i][j] = i + j
+    End For
+End For
+
+For i=0 To 2 Do
+    For j=0 To 2 Do
+        If i = 0 Then   
+            Print i
+        Else
+            Print j
+        End If
+    End For
+End For
+
+Assign str = "Hello"
+Assign concatResult = str + " World"
+Print concatResult
+
+While i < 4 Do
+    Assign i = i + 1
+    Print i
+End While
+
+While i < 4 Do
+    If i = 0 Then
+        Print "Zero"
+    Else 
+        Print "NoZero"
+    End If
+    Assign i = i + 1
+End While

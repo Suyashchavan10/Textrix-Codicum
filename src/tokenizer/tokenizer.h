@@ -26,6 +26,10 @@ enum class TokenType {
     READ,
     PRINT,
     IF,
+    ELSE,
+    END,
+    FOR,
+    WHILE,
     END_OF_FILE,
 };
 

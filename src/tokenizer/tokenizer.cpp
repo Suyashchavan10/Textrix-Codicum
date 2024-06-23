@@ -41,7 +41,7 @@ vector<Token> Tokenizer::tokenize() {
 
     // Add an end-of-file token
     tokens.push_back({ TokenType::END_OF_FILE, "", -1 });
-    tokens.push_back({ TokenType::END_OF_FILE, "", -1 });
+    // tokens.push_back({ TokenType::END_OF_FILE, "", -1 });
 
     return tokens;
 }
@@ -74,7 +74,7 @@ void Tokenizer::tokenizeIdentifier() {
         tokens.push_back({ TokenType::STRING, identifier, -1 });
     } else if (identifier == "Boolean") {
         tokens.push_back({ TokenType::BOOLEAN, identifier, -1 });
-    } else if (identifier == "As" || identifier == "Of") {
+    } else if (identifier == "As" || identifier == "Of" || identifier == "Then" || identifier == "To" || identifier == "Do") {
         tokens.push_back({ TokenType::KEYWORD, identifier, -1 });
     } else if (identifier == "Array") {
         tokens.push_back({ TokenType::ARRAY, identifier, -1 });
@@ -84,6 +84,14 @@ void Tokenizer::tokenizeIdentifier() {
         tokens.push_back({ TokenType::PRINT, identifier, -1 });
     } else if (identifier == "If") {
         tokens.push_back({ TokenType::IF, identifier, -1 });
+    } else if (identifier == "Else") {
+        tokens.push_back({ TokenType::ELSE, identifier, -1 });
+    } else if (identifier == "For") {
+        tokens.push_back({ TokenType::FOR, identifier, -1 });
+    } else if (identifier == "While") {
+        tokens.push_back({ TokenType::WHILE, identifier, -1 });
+    } else if (identifier == "End") {
+        tokens.push_back({ TokenType::END, identifier, -1 });
     } else {
         tokens.push_back({ TokenType::IDENTIFIER, identifier, -1 });
     }

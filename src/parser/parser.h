@@ -17,7 +17,8 @@ enum class NodeType {
     FOR_LOOP,
     WHILE_LOOP,
     DO_WHILE_LOOP,
-    IDENTIFIER
+    IDENTIFIER,
+    BLOCK
     // Add other necessary node types
 };
 
@@ -52,6 +53,8 @@ private:
     Node parseExpression();
     Node parsePrint();
     Node parseIf();
+    Node parseFor();
+    Node parseWhile();
 
     void release(TokenType expectedType);
     Token consume(TokenType expectedType);

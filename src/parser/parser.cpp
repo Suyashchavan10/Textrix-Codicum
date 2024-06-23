@@ -32,6 +32,10 @@ Node Parser::parseStatement() {
             return parsePrint();
         case TokenType::IF:
             return parseIf();
+        case TokenType::FOR:
+            return parseFor();
+        case TokenType::WHILE:
+            return parseWhile();
         default:
             throw runtime_error("Unexpected token: " + currentToken.lexeme);
     }
@@ -86,9 +90,12 @@ Node Parser::parseAssignment(){
     Token assignToken = consume(TokenType::ASSIGN);
     Node node(NodeType::ASSIGNMENT, assignToken);
 
-    Token identifierToken = consume(TokenType::IDENTIFIER);
+    while(currentToken.type == TokenType::IDENTIFIER){
+        Token identifierToken = consume(TokenType::IDENTIFIER);
+        node.children.push_back(Node(NodeType::IDENTIFIER, identifierToken));
+    }
+
     Token opert = consume(TokenType::OPERATOR);
-    node.children.push_back(Node(NodeType::IDENTIFIER, identifierToken));
     node.children.push_back(Node(NodeType::IDENTIFIER, opert));
 
     // Token expr = consume(currentToken.type);
@@ -102,13 +109,11 @@ Node Parser::parseExpression(){
     Token exprSt;
     Node node(NodeType::EXPRESSION, exprSt);
 
-    Token expr = consume(currentToken.type);
-    while(expr.type==TokenType::IDENTIFIER || expr.type==TokenType::OPERATOR || expr.type==TokenType::NUMBER){
+    while(currentToken.type==TokenType::IDENTIFIER || currentToken.type==TokenType::OPERATOR || currentToken.type==TokenType::NUMBER || currentToken.type==TokenType::STRINGVAL){
+        Token expr = consume(currentToken.type);
         node.children.push_back(Node(NodeType::IDENTIFIER, expr));
-        expr = consume(currentToken.type);
     }
 
-    release(currentToken.type);
     return node;
 }
 
@@ -127,6 +132,79 @@ Node Parser::parsePrint(){
 Node Parser::parseIf(){
     Token ifToken = consume(TokenType::IF);
     Node node(NodeType::IF_STATEMENT, ifToken);
+
+    Node condition = parseExpression();
+    node.children.push_back(condition);
+
+    Token thenToken = consume(TokenType::KEYWORD);
+    Node ifBlock(NodeType::BLOCK, thenToken);
+
+    while(currentToken.type != TokenType::ELSE && currentToken.type != TokenType::END){
+        Node blkStatement = parseStatement();
+        ifBlock.children.push_back(blkStatement);
+    }
+    node.children.push_back(ifBlock);
+
+    if(currentToken.type == TokenType::ELSE){
+        Token elseToken = consume(TokenType::ELSE);
+        Node elseBlock(NodeType::BLOCK, elseToken);
+
+        while(currentToken.type != TokenType::END){
+            Node blkStatement = parseStatement();
+            elseBlock.children.push_back(blkStatement);
+        }
+        node.children.push_back(elseBlock);
+    }
+    
+    Token endToken = consume(TokenType::END);
+    Token endIfToken = consume(TokenType::IF);
+
+    return node;
+}
+
+Node Parser::parseFor(){
+    Token forToken = consume(TokenType::FOR);
+    Node node(NodeType::FOR_LOOP, forToken);
+
+    Node stCondition = parseExpression();
+    node.children.push_back(stCondition);
+    Token toToken = consume(TokenType::KEYWORD);
+    Node edCondition = parseExpression();
+    node.children.push_back(edCondition);
+
+    Token doToken = consume(TokenType::KEYWORD);
+    Node forBlock(NodeType::BLOCK, doToken);
+
+    while(currentToken.type != TokenType::END){
+        Node blkStatement = parseStatement();
+        forBlock.children.push_back(blkStatement);
+    }
+    node.children.push_back(forBlock);
+
+    Token endToken = consume(TokenType::END);
+    Token endForToken = consume(TokenType::FOR);
+
+    return node;
+}
+
+Node Parser::parseWhile(){
+    Token whileToken = consume(TokenType::WHILE);
+    Node node(NodeType::WHILE_LOOP, whileToken);
+
+    Node condition = parseExpression();
+    node.children.push_back(condition);
+
+    Token doToken = consume(TokenType::KEYWORD);
+    Node whileBlock(NodeType::BLOCK, doToken);
+
+    while(currentToken.type != TokenType::END){
+        Node blkStatement = parseStatement();
+        whileBlock.children.push_back(blkStatement);
+    }
+    node.children.push_back(whileBlock);
+
+    Token endToken = consume(TokenType::END);
+    Token endWhileToken = consume(TokenType::WHILE);
 
     return node;
 }
@@ -183,6 +261,9 @@ void printAST(const Node& node, int level) {
             break;
         case NodeType::IDENTIFIER:
             cout << "IDENTIFIER";
+            break;
+        case NodeType::BLOCK:
+            cout << "BLOCK";
             break;
         // Add cases for other node types as needed
     }
