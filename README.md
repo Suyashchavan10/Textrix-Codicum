@@ -269,8 +269,9 @@ Navigate to the project directory:
 cd textrix-codicum
 ```
 Run the code from terminal
+```
 make
-
+```
 ## Usage
 
 1. Write your pseudocode in the specified format.
