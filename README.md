@@ -77,6 +77,7 @@
 
 ### Pseudocode
 
+```plaintext
 Declare x As Integer
 Declare y As Integer
 Declare result As Integer
@@ -157,6 +158,7 @@ isTrue = True
 isFalse = False
 boolResult = isTrue And isFalse
 Print boolResult
+```
 
 ### Generated C++ Code 
 
