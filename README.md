@@ -253,11 +253,11 @@ return 0;
 ### Installation
 Clone the repository:
 ```bash
-git clone https://github.com/yourusername/textrix-codicum.git
+git clone https://github.com/Suyashchavan10/Textrix-Codicum.git
 ```
 Navigate to the project directory:
 ```bash
-cd textrix-codicum
+cd Textrix-codicum
 ```
 Run the code from terminal
 ```
