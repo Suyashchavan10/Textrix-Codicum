@@ -149,15 +149,6 @@ While i < 4 Do
     End If
     Assign i = i + 1
 End While
-
-Declare isTrue As Boolean
-Declare isFalse As Boolean
-Declare boolResult As Boolean
-
-isTrue = True
-isFalse = False
-boolResult = isTrue And isFalse
-Print boolResult
 ```
 
 ### Generated C++ Code 
