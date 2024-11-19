@@ -12,6 +12,8 @@ int main() {
     
     // Read the pseudocode from the file
     ifstream inputFile("../pseudocode/pseudocode.txt");
+    // ifstream inputFile("../uploads/pseudocode.txt");
+    
     if (!inputFile) {
         cerr << "Failed to open pseudocode.txt" << endl;
         return 1;
@@ -59,6 +61,16 @@ int main() {
     cout << generatedCode << endl;
     cout<<"-----------------------------------------------------------------------------------"<<endl;
 
-    cout<<"PSEUDOCODE IS CONVERTED TO C++ SUCCESSFULLY !"<<endl;
+    // Write generated code to code.cpp
+    // ofstream outputFile("../uploads/code.cpp");
+    ofstream outputFile("../uploads/generatedCode.cpp");
+    if (!outputFile) {
+        cerr << "Failed to open code.cpp for writing" << endl;
+        return 1;
+    }
+    outputFile << generatedCode;
+    outputFile.close();
+
+    cout << "PSEUDOCODE IS CONVERTED TO C++ SUCCESSFULLY!" << endl;
     return 0;
 }

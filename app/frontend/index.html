@@ -7,6 +7,57 @@
     <title>Pseudocode to C++ Converter</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
+</head>
+<body class="container mt-5">
+    <h1 class="mb-4">Pseudocode to C++ Converter</h1>
+    <form id="uploadForm" action="/upload" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="pseudocodeFile">Choose a pseudocode file (.txt):</label>
+            <input type="file" class="form-control-file" id="pseudocodeFile" name="pseudocodeFile" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Convert to C++</button>
+    </form>
+
+    <div id="result" class="mt-4" style="display: none;">
+        <h3>Generated C++ Code:</h3>
+        <pre id="cppCode" class="border rounded p-3"></pre>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $('#uploadForm').on('submit', function(event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+
+            $.ajax({
+                url: '/upload',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    $('#cppCode').text(data.cppCode);
+                    $('#result').show();
+                },
+                error: function() {
+                    alert('Error converting pseudocode to C++');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pseudocode to C++ Converter</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
 
 </head>
 <body class="container mt-5">
@@ -46,4 +97,4 @@
         });
     </script>
 </body>
-</html>
+</html> -->
